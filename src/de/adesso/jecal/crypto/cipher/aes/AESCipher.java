@@ -1,4 +1,4 @@
-package de.adesso.jecal.crypto.cipher;
+package de.adesso.jecal.crypto.cipher.aes;
 
 
 import javax.crypto.*;
@@ -9,28 +9,33 @@ import java.security.*;
 
 public class AESCipher {
 
-    protected AESCipher(byte[] key) {
+    protected AESCipher(AESKey key) {
     }
 
-    public static byte[] AESEncrypt (String plaintext, AESKey key){
-        return AESEncrypt(plaintext.getBytes(StandardCharsets.UTF_8), key);
+    public static AESEncryptOutput AESEncrypt (String plaintext){
+        return AESEncrypt(plaintext.getBytes(StandardCharsets.UTF_8));
     }
 
-    public static AESEncryptedText AESEncrypt(byte[] plaintext, AESKey key)  {
+    public static AESEncryptOutput AESEncrypt(byte[] plaintext)  {
         try {
             // Generate IV
-            byte[] iv = new byte[128/8];
+            byte[] ivbytes = new byte[128/8];
             SecureRandom sr = SecureRandom.getInstanceStrong();
-            sr.nextBytes(iv);
-            IvParameterSpec initVector = new IvParameterSpec(iv);
+            sr.nextBytes(ivbytes);
+            IvParameterSpec initVector = new IvParameterSpec(ivbytes);
 
             // Generate Key from parameter
-           SecretKeySpec skey = new SecretKeySpec(key.key, "AES");
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            SecretKey key = keyGenerator.generateKey();
 
             // Init Cipher
             Cipher  cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, skey, initVector);
-            return cipher.doFinal(plaintext);
+            cipher.init(Cipher.ENCRYPT_MODE, key, initVector);
+
+
+            //Save output data in wrapper object
+            AESEncryptOutput out = new AESEncryptOutput(cipher.doFinal(plaintext), new InitVector(initVector.getIV()),new AESKey(key.getEncoded()));
+            return out;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
             System.out.println("Operation not finished");
@@ -38,6 +43,9 @@ public class AESCipher {
         return null;
     }
 
+    public static byte[] AESDecrypt(byte[] ciphertext, AESKey key, InitVector iv){
+        return AESDecrypt(ciphertext,key.getKey(),iv.getIv());
+    }
     public static byte[] AESDecrypt(byte[] ciphertext, byte[] key, byte[] iv){
         try {
             // Generate IV
