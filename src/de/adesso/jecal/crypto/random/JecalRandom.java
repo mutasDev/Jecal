@@ -14,4 +14,17 @@ public class JecalRandom {
         sr.nextBytes(ret);
         return ret;
     }
+
+    public int getRandomInt(){
+        return sr.nextInt();
+    }
+
+    public float getRandomFloat(){
+        return sr.nextFloat();
+    }
+
+    public boolean  getRandom(){
+        return sr.nextBoolean();
+    }
+
 }
