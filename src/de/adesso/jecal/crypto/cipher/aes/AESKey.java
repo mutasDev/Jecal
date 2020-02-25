@@ -1,15 +1,18 @@
 package de.adesso.jecal.crypto.cipher.aes;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
+
 public class AESKey {
 
-    byte[] key;
+    private byte[] key;
 
 
-    public AESKey(byte[] key){
+    public AESKey(SecretKeySpec key){
         this.key = key;
     }
 
-    public byte[] getKey() {
+    public Key getKey() {
         return key;
     }
 }
