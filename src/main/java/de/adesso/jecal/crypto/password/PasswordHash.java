@@ -5,7 +5,7 @@ import org.bouncycastle.crypto.generators.BCrypt;
 
 import java.nio.charset.StandardCharsets;
 
-public class PasswordHash {
+public class PasswordHash implements IPasswordHash{
 
     private JecalRandom ran;
     public PasswordHash(){

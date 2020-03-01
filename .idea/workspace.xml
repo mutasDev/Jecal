@@ -27,12 +27,13 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -62,14 +63,15 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/cipher/aes/AESCipher.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/HashedPassword.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/PasswordHash.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/digest/ShaDigest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/digest/IShaDigest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/digest/sha256/Sha256Digest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/digest/sha512/Sha512Digest.java" />
         <option value="$PROJECT_DIR$/src/main/java/Programm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/mac/IHMacSha.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/mac/HMacSha256.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/mac/IHMacSha.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/IPasswordHash.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/PasswordHash.java" />
       </list>
     </option>
   </component>
@@ -141,14 +143,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="crypto" type="462c0819:PsiDirectoryNode" />
-              <item name="mac" type="462c0819:PsiDirectoryNode" />
+              <item name="password" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -223,21 +225,22 @@
       <workItem from="1582623138560" duration="13231000" />
       <workItem from="1583059227233" duration="13200000" />
       <workItem from="1583077473777" duration="83000" />
+      <workItem from="1583077636140" duration="92000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13283000" />
+    <option name="totallyTimeSpent" value="13375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -500,27 +503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/HashedPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="e#321#322#0" expanded="true" />
-            <element signature="e#348#349#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/PasswordHash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="71" lean-forward="true" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/random/JecalRandom.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -563,19 +545,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/mac/IHMacSha.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Programm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/mac/IHMacSha256.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/IPasswordHash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/PasswordHash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/adesso/jecal/crypto/password/HashedPassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding>
+            <element signature="e#321#322#0" expanded="true" />
+            <element signature="e#348#349#0" expanded="true" />
           </folding>
         </state>
       </provider>
