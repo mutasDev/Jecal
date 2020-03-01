@@ -5,9 +5,10 @@ import de.adesso.jecal.crypto.random.JecalRandom;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
-public class HMacSha256 {
+public class HMacSha256 implements IHMacSha {
 
     private Mac mac;
     private MacSecret secret;
@@ -42,5 +43,9 @@ public class HMacSha256 {
 
     public HMacSha256Output generateMac(byte[] message){
         return new HMacSha256Output(mac.doFinal(message));
+    }
+
+    public HMacSha256Output generateMac(String message){
+        return generateMac(message.getBytes(StandardCharsets.UTF_8));
     }
 }

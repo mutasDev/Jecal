@@ -1,11 +1,13 @@
 package de.adesso.jecal.crypto.digest.sha512;
 
+import de.adesso.jecal.crypto.digest.IShaDigest;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Sha512Digest {
-    private Sha512Digest(){
+public class Sha512Digest implements IShaDigest {
+    public  Sha512Digest(){
     }
 
     public byte[] digest(byte[] input) throws NoSuchAlgorithmException {
