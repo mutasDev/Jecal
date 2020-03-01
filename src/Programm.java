@@ -1,7 +1,5 @@
 import de.adesso.jecal.crypto.cipher.aes.*;
-import de.adesso.jecal.crypto.cipher.rsa.RSACipher;
-import de.adesso.jecal.crypto.cipher.rsa.RSAEncryptOutput;
-import de.adesso.jecal.crypto.cipher.rsa.RSAKeyPair;
+import de.adesso.jecal.crypto.cipher.rsa.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -14,55 +12,54 @@ import java.util.Arrays;
 
 public class Programm
 {
-
-    public void send() {
+/*
+    public void send(String plaintext) throws AESException {
         IAESCipher cipher = new AESCipher(); // new AESCipher();
-        AESEncryptOutput aesEncryptOutput = cipher.AESEncrypt(plaintext);
+        AESEncryptOutput aesEncryptOutput = cipher.encrypt(plaintext);
         AESKey skey = cipher.getKey();
         // send key over secure channel
         // send aesEncryptOutput to receiver
     }
 
-    public void receive() {
+    public void receive() throws AESException {
         //receive output from sender
         IAESCipher cipher = new AESCipher(); // new AESCipher();
-        aes2.decrypt(aesEncryptOutput);
+        cipher.decrypt(aesEncryptOutput);
         byte[] test;
         String result = test.toString(StandardCharsets.UTF_8);
     }
+*/
+    public static void main(String[] args) throws AESException, RSAException {
+      // AES Example
 
-    public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        IAESCipher cipher = new AESCipher(); // new AESCipher();
+        IAESCipher aes = new AESCipher(); // new AESCipher();
 
-        AESCipherWithKey aes = cipher.init();
-        AESEncryptOutput aesEncryptOutput = aes.AESEncrypt("hello".getBytes(StandardCharsets.UTF_8));
-        SecretKeySpec skey = aes.getSkey();
+        AESEncryptOutput aesEncryptOutput = aes.encrypt("hello".getBytes(StandardCharsets.UTF_8));
+        AESKey skey = aes.getKey();
 
         // transfer aesEncryptOutput (safe)
         // transfer skey on a safe channel
 
-        AESCipherWithKey aes2 = cipher.init(skey);
+        AESCipher aes2 = new AESCipher(skey);
         aes2.decrypt(aesEncryptOutput);
 
-        AESEncryptOutput out = cipher.AESEncrypt("hello".getBytes(StandardCharsets.UTF_8));
-
-//        AESEncryptOutput out2 = cipher.AESEncrypt("hello".getBytes(StandardCharsets.UTF_8), out.getKey());
- //       System.out.println(Arrays.toString(out2.getCiphertext()));
-        System.out.println(Arrays.toString(out.getCiphertext()));
- //       System.out.println("3)"+Arrays.toString(cipher.AESDecrypt(out.getCiphertext(), out.getKey(), out.getIv())));
-//        System.out.println("4)" + Arrays.toString(cipher.AESDecrypt(out2.getCiphertext(), out2.getKey(), out2.getIv())));
+        AESEncryptOutput out = aes2.encrypt("hello".getBytes(StandardCharsets.UTF_8));
 
 
+        System.out.println(Arrays.toString(aes2.decrypt(out)));
 
-        //Generate RSA Key
+    // RSA Example
+
         RSAKeyPair keyPair = RSAKeyPair.genereateRSAKeyPair();
-        RSAEncryptOutput outt = RSACipher.RSAEncrypt("hello",  keyPair.getPublicKey());
+        IRSACipher rsa = new RSACipher(keyPair.getPublicKey());
+        RSAEncryptOutput outrsa = rsa.encrypt("hello");
 
-        System.out.println("1)" + Arrays.toString("hello".getBytes()));
+        IRSACipher rsa2 = new RSACipher(keyPair.getPrivateKey());
+        System.out.println(Arrays.toString(rsa2.decrypt(outrsa)));
 
-        System.out.println("2)"+ Arrays.toString(outt.getCiphertext()));
 
-        System.out.println("3)"+ Arrays.toString(RSACipher.RSADecrypt(outt.getCiphertext(),keyPair.getPrivateKey())));
+
+
     }
 
 }

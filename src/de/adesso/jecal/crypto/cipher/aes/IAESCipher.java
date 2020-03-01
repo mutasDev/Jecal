@@ -7,4 +7,6 @@ public interface IAESCipher {
     AESEncryptOutput encrypt(byte[] plaintext) throws AESException;
 
     byte[]decrypt(AESEncryptOutput input) throws AESException;
+
+    AESKey getKey();
 }

@@ -5,39 +5,63 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 
-public class RSACipher {
+public class RSACipher implements IRSACipher{
 
-    protected RSACipher(){
+    private RSAPrivateKey privKey;
+    private RSAPublicKey pubKey;
+
+    public RSACipher(RSAKeyPair rsaKeyPair){
+        privKey = rsaKeyPair.getPrivateKey();
+        pubKey = rsaKeyPair.getPublicKey();
     }
 
-    public static RSAEncryptOutput RSAEncrypt(String plaintext, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        return RSAEncrypt(plaintext.getBytes(StandardCharsets.UTF_8), publicKey);
+    public RSACipher(RSAPublicKey publicKey){
+        this.pubKey = publicKey;
     }
 
-    public static RSAEncryptOutput RSAEncrypt(byte[] plaintext, PublicKey publicKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSha-256AndMGF1Padding");
-
-        cipher.init(Cipher.ENCRYPT_MODE,publicKey );
-        RSAEncryptOutput ret = new RSAEncryptOutput(cipher.doFinal(plaintext), publicKey);
-        return ret;
+    public RSACipher(RSAPrivateKey privKey){
+        this.privKey = privKey;
     }
 
-    public static byte[] RSADecrypt(String ciphertext, PrivateKey key ) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
-        return RSADecrypt(ciphertext.getBytes(StandardCharsets.UTF_8), key);
+    public RSAEncryptOutput encrypt(String plaintext) throws RSAException {
+        return encrypt(plaintext.getBytes(StandardCharsets.UTF_8));
     }
 
-    public static byte[] RSADecrypt(byte[] ciphertext, PrivateKey key) throws InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSha-256AndMGF1Padding");
-        cipher.init(Cipher.DECRYPT_MODE, key);
+    public RSAEncryptOutput encrypt(byte[] plaintext) throws RSAException {
+        try {
+            Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSha-256AndMGF1Padding");
+            cipher.init(Cipher.ENCRYPT_MODE,pubKey.getKey());
+            RSAEncryptOutput ret = new RSAEncryptOutput(cipher.doFinal(plaintext), pubKey);
+            return ret;
+        } catch (Exception e){
+            throw new RSAException();
+        }
 
-        return cipher.doFinal(ciphertext);
+
     }
 
 
 
+    public byte[] decrypt(RSAEncryptOutput out) throws RSAException {
+        try {
+            Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSha-256AndMGF1Padding");
+            cipher.init(Cipher.DECRYPT_MODE, privKey.getKey());
+            return cipher.doFinal(out.getCiphertext());
+        } catch (Exception e){
+            throw new RSAException();
+        }
+    }
+
+    public RSAPublicKey getPublicKey(){
+        return this.pubKey;
+    }
+
+    public RSAPrivateKey getPrivateKey(){
+        return this.privKey;
+    }
 }
+
+
+

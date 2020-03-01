@@ -9,10 +9,10 @@ public class AESKey {
 
 
     public AESKey(SecretKeySpec key){
-        this.key = key;
+        this.key = key.getEncoded();
     }
 
     public Key getKey() {
-        return key;
+        return new SecretKeySpec(key, "AES");
     }
 }

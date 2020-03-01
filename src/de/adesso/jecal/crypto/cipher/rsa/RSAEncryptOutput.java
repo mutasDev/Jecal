@@ -4,9 +4,9 @@ import java.security.PublicKey;
 
 public class RSAEncryptOutput {
     private byte[] ciphertext;
-    private PublicKey key;
+    private RSAPublicKey key;
 
-    public RSAEncryptOutput(byte[] ciphertext,  PublicKey key){
+    public RSAEncryptOutput(byte[] ciphertext,  RSAPublicKey key){
         this.ciphertext = ciphertext;
         this.key = key;
     }
@@ -16,7 +16,7 @@ public class RSAEncryptOutput {
     }
 
 
-    public PublicKey getKey() {
+    public RSAPublicKey getKey() {
         return key;
     }
 }

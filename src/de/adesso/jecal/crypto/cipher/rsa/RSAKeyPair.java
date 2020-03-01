@@ -5,10 +5,10 @@ import java.security.*;
 public class RSAKeyPair {
     private KeyPair keyPair;
 
-    private RSAKeyPair(){
+    private RSAKeyPair() {
     }
 
-    public static RSAKeyPair genereateRSAKeyPair(){
+    public static RSAKeyPair genereateRSAKeyPair() {
         KeyPairGenerator generator = null;
         try {
             generator = KeyPairGenerator.getInstance("RSA");
@@ -25,11 +25,11 @@ public class RSAKeyPair {
         return rsaKeyPair;
     }
 
-    public PrivateKey getPrivateKey() {
-        return keyPair.getPrivate();
+    public RSAPrivateKey getPrivateKey() {
+        return new RSAPrivateKey(keyPair.getPrivate());
     }
 
-    public PublicKey getPublicKey() {
-        return keyPair.getPublic();
+    public RSAPublicKey getPublicKey() {
+        return new RSAPublicKey(keyPair.getPublic());
     }
 }

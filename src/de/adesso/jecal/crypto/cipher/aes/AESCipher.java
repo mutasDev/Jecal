@@ -61,7 +61,7 @@ public class AESCipher implements IAESCipher {
         }
     }
 
-    public AESKey getAesKey() {
+    public AESKey getKey() {
         return aesKey;
     }
 }
