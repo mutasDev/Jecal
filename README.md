@@ -69,6 +69,6 @@ byte[] saltExample = ran.getRandomBytes(20); // byte array length 20
 ## Hash functions
 Possible hash functions in this API are Sha256 and Sha512
 ```
-Sha512Digest sha = new Sha512Digest();
+IShaDigest sha = new Sha512Digest();
 byte[] hash = sha.digest("plaintext"); 
 ```
