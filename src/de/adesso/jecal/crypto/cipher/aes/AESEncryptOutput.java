@@ -3,12 +3,10 @@ package de.adesso.jecal.crypto.cipher.aes;
 public class AESEncryptOutput {
     private byte[] ciphertext;
     private InitVector iv;
-    private AESKey key;
 
-    public AESEncryptOutput(byte[] ciphertext, InitVector iv, AESKey key){
+    public AESEncryptOutput(byte[] ciphertext, InitVector iv){
         this.ciphertext = ciphertext;
         this.iv = iv;
-        this.key = key;
     }
 
     public byte[] getCiphertext(){
@@ -19,7 +17,4 @@ public class AESEncryptOutput {
         return iv;
     }
 
-    public AESKey getKey() {
-        return key;
-    }
 }

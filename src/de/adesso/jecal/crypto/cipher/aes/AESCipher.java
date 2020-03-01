@@ -7,64 +7,64 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 
-public class AESCipher {
+public class AESCipher implements IAESCipher {
 
-    protected AESCipher(AESKey key) {
+    private AESKey aesKey;
+
+    public AESCipher() throws AESException {
+        KeyGenerator keyGenerator = null;
+        try {
+            keyGenerator = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            throw new AESException();
+        }
+        SecretKey key = keyGenerator.generateKey();
+        SecretKeySpec skey = new SecretKeySpec(key.getEncoded(), "AES");
+        this.aesKey = new AESKey(skey);
     }
 
-    public static AESEncryptOutput AESEncrypt (String plaintext){
-        return AESEncrypt(plaintext.getBytes(StandardCharsets.UTF_8));
+    public AESCipher(AESKey aesKey) throws AESException {
+        this.aesKey = aesKey;
     }
 
-    public static AESEncryptOutput AESEncrypt(byte[] plaintext)  {
+    public AESEncryptOutput encrypt(String plaintext) throws AESException {
+        return encrypt(plaintext.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public AESEncryptOutput encrypt(byte[] plaintext) throws AESException {
         try {
             // Generate IV
-            byte[] ivbytes = new byte[128/8];
+            byte[] ivbytes = new byte[128 / 8];
             SecureRandom sr = SecureRandom.getInstanceStrong();
             sr.nextBytes(ivbytes);
             IvParameterSpec initVector = new IvParameterSpec(ivbytes);
-
-            // Generate Key from parameter
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            SecretKey key = keyGenerator.generateKey();
-
             // Init Cipher
-            Cipher  cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, key, initVector);
-
-
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, this.aesKey.getKey() , initVector);
             //Save output data in wrapper object
-            AESEncryptOutput out = new AESEncryptOutput(cipher.doFinal(plaintext), new InitVector(initVector.getIV()),new AESKey(key.getEncoded()));
-            return out;
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            e.printStackTrace();
-            System.out.println("Operation not finished");
+             return new AESEncryptOutput(cipher.doFinal(plaintext), new InitVector(initVector.getIV()));
+        } catch (Exception e) {
+            throw new AESException();
         }
-        return null;
     }
 
-    public static byte[] AESDecrypt(byte[] ciphertext, AESKey key, InitVector iv){
-        return AESDecrypt(ciphertext,key.getKey(),iv.getIv());
-    }
-    public static byte[] AESDecrypt(byte[] ciphertext, byte[] key, byte[] iv){
+    public byte[] decrypt(AESEncryptOutput input) throws AESException {
         try {
             // Generate IV
-            IvParameterSpec initVector = new IvParameterSpec(iv);
-
-            // Generate Key from parameter
-            SecretKeySpec skey = new SecretKeySpec(key, "AES");
-
+            IvParameterSpec initVector = new IvParameterSpec(input.getIv().getIv());
             // Init Cipher
-            Cipher  cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, skey, initVector);
-            return cipher.doFinal(ciphertext);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            e.printStackTrace();
-            System.out.println("Operation not finished");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, this.aesKey.getKey(), initVector);
+            return cipher.doFinal(input.getCiphertext());
+        } catch (Exception e) {
+            throw new AESException();
         }
-        return null;
     }
+
+    public AESKey getAesKey() {
+        return aesKey;
     }
+}
 
 
 
