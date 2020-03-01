@@ -6,7 +6,7 @@ Encapsulates JCA and Bouncy Castle methods and makes choices for users, i.e. the
 # Usage examples
 
 The following cryptographic concepts are implemented in the current prototype of the layer
-All concepts work by first constructing an instance of the concept (by choice with a securely generated secret or an own one) and then using operational methods of it.
+All concepts work by first constructing an instance the concept wanted for the corresponding interface of it (by choice with a securely generated secret or an own one) and then using operational methods of it.
 
 ## Symmetric Encryption (AES)
 To use symmetric encryption, create an instance of an `AESCipher` and use the operational method `encrypt` of it. Afterwards transmit ciphertext and key to the decrypting party.
@@ -21,20 +21,23 @@ AESKey = aesCipher.getKey();
 AESEncryptOutput aesOut = cipher.encrypt("plaintext");
 ```
 ### Decryption of this message
-```IAESCipher decrypter = new AESCipher(aesKey);
- byte[] plaintext = decrypter.decrypt(aesOut); 
+```
+IAESCipher decrypter = new AESCipher(aesKey);
+byte[] plaintext = decrypter.decrypt(aesOut); 
 ```
 ## Asymmetric Encryption (RSA)
   To use asymmetric encryption, create an `RSAKeyPair` by its static `generateKeyPair` method and use these keys for the constructors.
   
 ### Creating KeyPair and encryption instance to encrypt plaintext
-```RSAKeyPair keypair = RSAKeyPair.generateRSAKeyPair();
+```
+RSAKeyPair keypair = RSAKeyPair.generateRSAKeyPair();
 IRSACipher rsaCipher = new RSACipher(keyPair.getPublicKey());
 RSAEncryptOutput rsaOutput = rsa.encrypt("plaintext");
 ```
 
 ### To decrypt the ciphertext, construct `RSACipher` with the private key
-```IRSACipher rsaDecrypter = new RSACipher(keyPair.getPrivateKey());
+```
+IRSACipher rsaDecrypter = new RSACipher(keyPair.getPrivateKey());
 byte[] plaintext = rsaDecrypter.decrypt(rsaOutput);
 ```
 
