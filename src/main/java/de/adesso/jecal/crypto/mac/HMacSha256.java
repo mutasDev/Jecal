@@ -3,12 +3,10 @@ package de.adesso.jecal.crypto.mac;
 import de.adesso.jecal.crypto.random.JecalRandom;
 
 import javax.crypto.Mac;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
 
-public class HMacSha256 implements IHMacSha {
+public class HMacSha256 implements IHMacSha256 {
 
     private Mac mac;
     private MacSecret secret;
