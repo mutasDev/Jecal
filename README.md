@@ -14,7 +14,7 @@ To use symmetric encryption, create an instance of an `AESCipher` and use the op
 ### Create the instance and save key for decryption
 ```
 IAESCipher aesCipher = new AESCipher();
-AESKey = aesCipher.getKey();
+AESKey aesKey = aesCipher.getKey();
 ```
 ### Encrypt a String or a bytearray
 ```
